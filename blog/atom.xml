@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://Arterning.github.io/blogs/blog</id>
+    <title>Ning Blogs Site Blog</title>
+    <updated>2023-03-01T07:10:23.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://Arterning.github.io/blogs/blog"/>
+    <subtitle>Ning Blogs Site Blog</subtitle>
+    <icon>https://Arterning.github.io/blogs/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[同步和异步的概念]]></title>
+        <id>https://Arterning.github.io/blogs/blog/同步和异步的概念</id>
+        <link href="https://Arterning.github.io/blogs/blog/同步和异步的概念"/>
+        <updated>2023-03-01T07:10:23.000Z</updated>
+        <summary type="html"><![CDATA[同步编程模型]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="同步编程模型">同步编程模型<a href="#同步编程模型" class="hash-link" aria-label="Direct link to 同步编程模型" title="Direct link to 同步编程模型">​</a></h2><p>同步就是多个任务一个一个执行 必须第一个运行完了才能运行第二个</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="异步编程模型">异步编程模型<a href="#异步编程模型" class="hash-link" aria-label="Direct link to 异步编程模型" title="Direct link to 异步编程模型">​</a></h2><p>异步就是多个任务都在执行</p><p>我们看一下JS是如何实现的 比如下面这段代码</p><div class="language-javascript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-javascript codeBlock_bY9V thin-scrollbar"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">new</span><span class="token plain"> </span><span class="token class-name">Promise</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">urla</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">new</span><span class="token plain"> </span><span class="token class-name">Promise</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">urlb</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">new</span><span class="token plain"> </span><span class="token class-name">Promise</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">urlc</span><span class="token punctuation" style="color:#393A34">)</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg class="copyButtonIcon_y97N" viewBox="0 0 24 24"><path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg class="copyButtonSuccessIcon_LjdS" viewBox="0 0 24 24"><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div><p>上面这段代码是一段伪代码，代表三个任务 请求urla urlb urlc。
+虽然三个url请求是一个一个请求的 (你可以想象一下相当于顺序开启了三个线程 虽然不是很准确)
+但是url请求的实际工作是各自分开进行的，互不影响。</p><p>如果上面的代码在浏览器中执行，实际上底层应该只有一个CPU Core
+但是三个任务的代码确实是都在执行了，这就是基于划分CPU时间片原理的并发</p><p>CPU一会运行任务A 一会运行任务B 一会运行任务C 确实是同时执行了
+即使urla的请求还没有完成（还没有收到相应），但是不影响我接着请求urlb urlc🐕</p><p></p><p>但是需要注意的是 在任意时刻 核心只能执行其中的一个任务 b请求和c请求 并不需要等待a的返回 所以nodejs相当于用一个线程就实现了异步编程模型 这样的好处是没有CPU上下文切换的开销 也不需要处理共享资源竞争的问题(这是个很复杂的问题而且很棘手!!)</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="关于并行和并发">关于并行和并发<a href="#关于并行和并发" class="hash-link" aria-label="Direct link to 关于并行和并发" title="Direct link to 关于并行和并发">​</a></h2><h3 class="anchor anchorWithStickyNavbar_LWe7" id="并行">并行<a href="#并行" class="hash-link" aria-label="Direct link to 并行" title="Direct link to 并行">​</a></h3><p>多个CPU core 同时运行</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="并发">并发<a href="#并发" class="hash-link" aria-label="Direct link to 并发" title="Direct link to 并发">​</a></h3><p>CPU core以切换时间片的方式并发执行多个任务</p><p>注意 这里的语境是对于CPU来说的
+很显然，并发在不同的语境下有不同的涵义</p><p>在web系统中，高并发是另外一个含义了
+所以一定需要注意 同一个词语在不同的语境 也就是context下 有不同的含义
+所以当我们在讨论一个概念的时候 一定需要明确我们的背景和Context是什么</p>]]></content>
+        <author>
+            <name>Ning</name>
+            <uri>https://github.com/Arterning</uri>
+        </author>
+        <category label="basic" term="basic"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[文件命名规范]]></title>
+        <id>https://Arterning.github.io/blogs/blog/文件命名规范</id>
+        <link href="https://Arterning.github.io/blogs/blog/文件命名规范"/>
+        <updated>2023-03-01T07:10:23.000Z</updated>
+        <summary type="html"><![CDATA[01-title-subtitle.md]]></summary>
+        <content type="html"><![CDATA[<p>01-title-subtitle.md
+例如
+01-docker compose 网络设置.md</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="关于-workflow">关于 workflow<a href="#关于-workflow" class="hash-link" aria-label="Direct link to 关于 workflow" title="Direct link to 关于 workflow">​</a></h2><p>workflow 表示你的工作
+我觉得 workflow 是一个很好的概念
+用来给笔记命名很好
+01-workflow-linux-curl.md
+当目录文件超过 100 个，考虑整理归档
+notion 作为在线笔记也是如此使用</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="注意">注意<a href="#注意" class="hash-link" aria-label="Direct link to 注意" title="Direct link to 注意">​</a></h2><p>markdown 编写一定要注意规范
+第一就是标题 层级标题非常重要
+一定要把文章的结构标记清楚
+代码要使用代码块。</p>]]></content>
+        <author>
+            <name>Ning</name>
+            <uri>https://github.com/Arterning</uri>
+        </author>
+        <category label="basic" term="basic"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Welcome]]></title>
+        <id>https://Arterning.github.io/blogs/blog/welcome</id>
+        <link href="https://Arterning.github.io/blogs/blog/welcome"/>
+        <updated>2021-08-26T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Docusaurus blogging features are powered by the blog plugin.]]></summary>
+        <content type="html"><![CDATA[<p><a href="https://docusaurus.io/docs/blog" target="_blank" rel="noopener noreferrer">Docusaurus blogging features</a> are powered by the <a href="https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog" target="_blank" rel="noopener noreferrer">blog plugin</a>.</p><p>Simply add Markdown files (or folders) to the <code>blog</code> directory.</p><p>Regular blog authors can be added to <code>authors.yml</code>.</p><p>The blog post date can be extracted from filenames, such as:</p><ul><li><code>2019-05-30-welcome.md</code></li><li><code>2019-05-30-welcome/index.md</code></li></ul><p>A blog post folder can be convenient to co-locate blog post images:</p><p><img loading="lazy" alt="Docusaurus Plushie" src="/blogs/assets/images/docusaurus-plushie-banner-a60f7593abca1e3eef26a9afa244e4fb.jpeg" width="1500" height="500" class="img_ev3q"></p><p>The blog supports tags as well!</p><p><strong>And if you don't want a blog</strong>: just delete this directory, and use <code>blog: false</code> in your Docusaurus config.</p>]]></content>
+        <author>
+            <name>Ning</name>
+            <uri>https://github.com/Arterning</uri>
+        </author>
+        <author>
+            <name>Ning</name>
+            <uri>https://github.com/Arterning</uri>
+        </author>
+        <category label="facebook" term="facebook"/>
+        <category label="hello" term="hello"/>
+        <category label="docusaurus" term="docusaurus"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[MDX Blog Post]]></title>
+        <id>https://Arterning.github.io/blogs/blog/mdx-blog-post</id>
+        <link href="https://Arterning.github.io/blogs/blog/mdx-blog-post"/>
+        <updated>2021-08-01T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Blog posts support Docusaurus Markdown features, such as MDX.]]></summary>
+        <content type="html"><![CDATA[<p>Blog posts support <a href="https://docusaurus.io/docs/markdown-features" target="_blank" rel="noopener noreferrer">Docusaurus Markdown features</a>, such as <a href="https://mdxjs.com/" target="_blank" rel="noopener noreferrer">MDX</a>.</p><div class="theme-admonition theme-admonition-tip alert alert--success admonition_LlT9"><div class="admonitionHeading_tbUL"><span class="admonitionIcon_kALy"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_S0QG"><p>Use the power of React to create interactive blog posts.</p><div class="language-js codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-js codeBlock_bY9V thin-scrollbar"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token operator" style="color:#393A34">&lt;</span><span class="token plain">button onClick</span><span class="token operator" style="color:#393A34">=</span><span class="token punctuation" style="color:#393A34">{</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token arrow operator" style="color:#393A34">=&gt;</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">alert</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">'button clicked!'</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">}</span><span class="token operator" style="color:#393A34">&gt;</span><span class="token maybe-class-name">Click</span><span class="token plain"> me</span><span class="token operator" style="color:#393A34">!</span><span class="token operator" style="color:#393A34">&lt;</span><span class="token operator" style="color:#393A34">/</span><span class="token plain">button</span><span class="token operator" style="color:#393A34">&gt;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg class="copyButtonIcon_y97N" viewBox="0 0 24 24"><path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg class="copyButtonSuccessIcon_LjdS" viewBox="0 0 24 24"><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div><button>Click me!</button></div></div>]]></content>
+        <author>
+            <name>Ning</name>
+            <uri>https://github.com/Arterning</uri>
+        </author>
+        <category label="docusaurus" term="docusaurus"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[阻塞和非阻塞的概念]]></title>
+        <id>https://Arterning.github.io/blogs/blog/long-blog-post</id>
+        <link href="https://Arterning.github.io/blogs/blog/long-blog-post"/>
+        <updated>2019-05-29T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[这个概念主要用于描述网络编程模型的，上下文是socket网络编程]]></summary>
+        <content type="html"><![CDATA[<p>这个概念主要用于描述网络编程模型的，上下文是socket网络编程</p><p>阻塞和非阻塞主要指的是应用程序从内核空间到用户空间复制数据是否需要等待</p>]]></content>
+        <author>
+            <name>Ning</name>
+            <uri>https://github.com/Arterning</uri>
+        </author>
+        <category label="basic" term="basic"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[First Blog Post]]></title>
+        <id>https://Arterning.github.io/blogs/blog/first-blog-post</id>
+        <link href="https://Arterning.github.io/blogs/blog/first-blog-post"/>
+        <updated>2019-05-28T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Hello World ~]]></summary>
+        <content type="html"><![CDATA[<p>Hello World ~</p>]]></content>
+        <author>
+            <name>Gao Wei</name>
+            <uri>https://github.com/wgao19</uri>
+        </author>
+        <category label="hola" term="hola"/>
+        <category label="docusaurus" term="docusaurus"/>
+    </entry>
+</feed>
