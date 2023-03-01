@@ -41,3 +41,13 @@ $ GIT_USER=<Your GitHub username> yarn deploy
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+
+
+# Deploy to github page
+需要注意你使用的shell环境
+windows下有power shell, cmd, git bash
+最好使用cmd
+
+```
+cmd /C "set "GIT_USER=Arterning" && yarn deploy"
+```
