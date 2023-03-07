@@ -51,3 +51,9 @@ windows下有power shell, cmd, git bash
 ```
 cmd /C "set "GIT_USER=Arterning" && yarn deploy"
 ```
+
+Linux
+
+```
+GIT_USER=Arterning yarn deploy
+```
