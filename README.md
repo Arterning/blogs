@@ -57,3 +57,13 @@ Linux
 ```
 GIT_USER=Arterning yarn deploy
 ```
+
+# Add page 
+Create new js or ts component under src/components directory, please notice your baseUrl configuration
+
+for example if your baseUrl is just like following:
+```
+ baseUrl: '/blogs/',
+```
+so you should visit http://domain/blogs/helloReact
+
