@@ -212,7 +212,7 @@ class Demo extends React.Component{
 }
 ```
 
-# 事件处理
+## 事件处理
 
 ```javascript
 class Demo extends React.Component{
@@ -249,10 +249,12 @@ class Demo extends React.Component{
 2. 通过event.target得到发生事件的DOM元素对象, 不要过度使用ref
         
 
-# 受控组件和非受控组件
+## 受控组件和非受控组件
 
 
-受控组件，表单的内容存放在state中
+### 受控组件
+
+表单的内容存放在state中
 
 ```javascript
 class Login extends React.Component{
@@ -289,7 +291,7 @@ class Login extends React.Component{
 ```
 
 
-非受控组件
+### 非受控组件
 
 表单的内容并没有存放在state中
 
@@ -312,3 +314,176 @@ class Login extends React.Component{
 }
 ```
 
+### 函数柯里化改写
+
+```javascript
+class Login extends React.Component{
+
+    state = {
+        username:'', //用户名
+        password:'' //密码
+    }
+
+    saveFormData = (dataType)=>{
+        return (event)=>{
+            this.setState({[dataType]:event.target.value})
+        }
+    }
+
+    //表单提交的回调
+    handleSubmit = (event)=>{
+        event.preventDefault() //阻止表单提交
+        const {username,password} = this.state
+        alert(`你输入的用户名是：${username},你输入的密码是：${password}`)
+    }
+    render(){
+        return(
+            <form onSubmit={this.handleSubmit}>
+                用户名：<input onChange={this.saveFormData('username')} type="text" name="username"/>
+                密码：<input onChange={this.saveFormData('password')} type="password" name="password"/>
+                <button>登录</button>
+            </form>
+        )
+    }
+}
+```
+
+高阶函数：
+如果一个函数符合下面2个规范中的任何一个，那该函数就是高阶函数。
+* 若A函数，接收的参数是一个函数，那么A就可以称之为高阶函数。
+* 若A函数，调用的返回值依然是一个函数，那么A就可以称之为高阶函数。
+
+常见的高阶函数有：Promise、setTimeout、arr.map()等等
+
+函数的柯里化：通过函数调用继续返回函数的方式，实现多次接收参数最后统一处理的函数编码形式
+
+```javascript
+function sum(a){
+    return(b)=>{
+        return (c)=>{
+            return a+b+c
+        }
+    }
+}
+```
+
+## 组件生命周期
+1. 初始化阶段: 由ReactDOM.render()触发---初次渲染
+        1.	constructor()
+        2.	getDerivedStateFromProps 
+        3.	render()
+        4.	componentDidMount() 一般在这个钩子中做一些初始化的事，例如：开启定时器、发送网络请求、订阅消息
+2. 更新阶段: 由组件内部this.setSate()或父组件重新render触发
+        1.	getDerivedStateFromProps
+        2.	shouldComponentUpdate()
+        3.	render()
+        4.	getSnapshotBeforeUpdate
+        5.	componentDidUpdate()
+3. 卸载组件: 由ReactDOM.unmountComponentAtNode()触发
+        1.	componentWillUnmount() 一般在这个钩子中做一些收尾的事，例如：关闭定时器、取消订阅消息
+
+
+```javascript
+class Count extends React.Component{
+    //构造器
+    constructor(props){
+        console.log('Count---constructor');
+        super(props)
+        //初始化状态
+        this.state = {count:0}
+    }
+
+    add = ()=>{
+        const {count} = this.state
+        this.setState({count:count+1})
+    }
+
+    //卸载组件按钮的回调
+    death = ()=>{
+        ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+    }
+
+    //强制更新按钮的回调
+    force = ()=>{
+        this.forceUpdate()
+    }
+    
+    //若state的值在任何时候都取决于props，那么可以使用getDerivedStateFromProps
+    static getDerivedStateFromProps(props,state){
+        console.log('getDerivedStateFromProps',props,state);
+        return null
+    }
+
+    //在更新之前获取快照
+    getSnapshotBeforeUpdate(){
+        console.log('getSnapshotBeforeUpdate');
+        return 'getSnapshotBeforeUpdate'
+    }
+
+    //组件挂载完毕的钩子
+    componentDidMount(){
+        console.log('Count---componentDidMount');
+    }
+
+    //组件将要卸载的钩子
+    componentWillUnmount(){
+        console.log('Count---componentWillUnmount');
+    }
+
+    //控制组件更新的“阀门”
+    shouldComponentUpdate(){
+        console.log('Count---shouldComponentUpdate');
+        return true
+    }
+
+    //组件更新完毕的钩子
+    componentDidUpdate(preProps,preState,snapshotValue){
+        console.log('Count---componentDidUpdate',preProps,preState,snapshotValue);
+    }
+    
+    render(){
+        console.log('Count---render');
+        const {count} = this.state
+        return(
+            <div>
+                <h2>当前求和为：{count}</h2>
+                <button onClick={this.add}>点我+1</button>
+                <button onClick={this.death}>卸载组件</button>
+                <button onClick={this.force}>不更改任何状态中的数据，强制更新一下</button>
+            </div>
+        )
+    }
+}
+```
+
+## 虚拟DOM中key的选择
+
+react/vue中的key有什么作用？key的内部原理是什么？为什么遍历列表时，key最好不要用index?
+      
+* 虚拟DOM中key的作用：
+        1. key是虚拟DOM对象的标识, 在更新显示时key起着极其重要的作用。
+
+        2. 当状态中的数据发生变化时，react会根据【新数据】生成【新的虚拟DOM】
+
+        3. 随后React进行【新虚拟DOM】与【旧虚拟DOM】的diff比较，比较规则如下：
+
+        a. 旧虚拟DOM中找到了与新虚拟DOM相同的key：
+                    (1).若虚拟DOM中内容没变, 直接使用之前的真实DOM
+                    (2).若虚拟DOM中内容变了, 则生成新的真实DOM，随后替换掉页面中之前的真实DOM
+
+        b. 旧虚拟DOM中未找到与新虚拟DOM相同的key
+                    根据数据创建新的真实DOM，随后渲染到到页面
+                        
+* 用index作为key可能会引发的问题：
+        1. 若对数据进行：逆序添加、逆序删除等破坏顺序操作:
+                        会产生没有必要的真实DOM更新 ==> 界面效果没问题, 但效率低。
+
+        2. 如果结构中还包含输入类的DOM：
+                        会产生错误DOM更新 ==> 界面有问题。
+                        
+        3. 注意！如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，
+            仅用于渲染列表用于展示，使用index作为key是没有问题的。
+        
+* 开发中如何选择key:
+        1. 最好使用每条数据的唯一标识作为key, 比如id、手机号、身份证号、学号等唯一值。
+        2. 如果确定只是简单的展示数据，用index也是可以的。
