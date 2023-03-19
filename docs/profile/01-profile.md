@@ -1,6 +1,6 @@
 ## 联系方式
 
-- Email: [china_ningning@outlook.com](mailto:china_ningning@outlook.com)
+- Email: [ning.huang.ridson@gmail.com](mailto:ning.huang.ridson@gmail.com)
 - Github：[https://github.com/Arterning](https://github.com/Arterning)
 
 ## 工作经历
