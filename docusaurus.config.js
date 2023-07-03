@@ -91,6 +91,12 @@ const config = {
             sidebarId: 'tutorial',
             label: 'Tutorial',
           },
+          {
+            type: 'docSidebar',
+            position: 'left',
+            sidebarId: 'notion',
+            label: 'Notion',
+          },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/Arterning',
