@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[3182],{9425:(e,t,l)=>{l.r(t),l.d(t,{default:()=>c});var n=l(7294),a=l(7358);function c(){return n.createElement(a.Z,null,n.createElement("h1",null,"What is hook? why it called hook?"),n.createElement("p",null,"This is a React page"),n.createElement("button",null,"click me"))}}}]);
