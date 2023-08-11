@@ -82,8 +82,8 @@ const config = {
           {
             type: 'docSidebar',
             position: 'left',
-            sidebarId: 'backEnd',
-            label: 'backEnd',
+            sidebarId: 'BackEnd',
+            label: 'BackEnd',
           },
           {
             type: 'docSidebar',
@@ -94,8 +94,8 @@ const config = {
           {
             type: 'docSidebar',
             position: 'left',
-            sidebarId: 'frontEnd',
-            label: 'frontEnd',
+            sidebarId: 'FrontEnd',
+            label: 'FrontEnd',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
