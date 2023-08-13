@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[3937],{5722:e=>{e.exports=JSON.parse('{"permalink":"/blogs/blog/tags/basic","page":1,"postsPerPage":2,"totalPages":2,"totalCount":3,"nextPage":"/blogs/blog/tags/basic/page/2","blogDescription":"A Docusaurus powered blog!","blogTitle":"Docusaurus blog!"}')}}]);
