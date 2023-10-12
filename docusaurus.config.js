@@ -4,7 +4,6 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
-/** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Ning Blogs Site',
   tagline: 'Dinosaurs are cool',
@@ -82,27 +81,19 @@ const config = {
           {
             type: 'docSidebar',
             position: 'left',
-            sidebarId: 'BackEnd',
-            label: 'BackEnd',
-          },
-          {
-            type: 'docSidebar',
-            position: 'left',
             sidebarId: 'tutorial',
             label: 'Tutorial',
           },
           {
-            type: 'docSidebar',
-            position: 'left',
-            sidebarId: 'FrontEnd',
-            label: 'FrontEnd',
+            to: '/newPage',
+            label: 'New Page',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/Arterning',
             label: 'GitHub',
             position: 'right',
-          }, 
+          },
         ],
       },
       footer: {
