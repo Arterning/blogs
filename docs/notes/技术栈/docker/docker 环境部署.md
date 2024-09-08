@@ -1,9 +1,12 @@
+# Docker 离线安装
 
+```bash
 cp docker/* /usr/bin/
 cat follow to /etc/systemd/system/docker.service
-
 ```
 
+
+```bash
 [Unit]
 Description=Docker Application Container Engine
 Documentation=https://docs.docker.com
@@ -39,18 +42,17 @@ WantedBy=multi-user.target
 
 ```
 
-```
+```bash
 chmod +x /etc/systemd/system/docker.service
 systemctl daemon-reload
 systemctl start docker
 systemctl enable docker.service
 systemctl status docker
 docker -v
-
 ```
 
 
-```
+```bash
 mv docker-compose-linux-x86_64 /usr/local/bin/
 mv /usr/local/bin/docker-compose-linux-x86_64 /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
