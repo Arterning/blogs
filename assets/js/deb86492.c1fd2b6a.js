@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkmy_website=globalThis.webpackChunkmy_website||[]).push([[8979],{9397:a=>{a.exports=JSON.parse('{"label":"facebook","permalink":"/blogs/blog/tags/facebook","allTagsPath":"/blogs/blog/tags","count":1}')}}]);
