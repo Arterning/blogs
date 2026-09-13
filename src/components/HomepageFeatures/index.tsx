@@ -10,32 +10,29 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: '音乐 · 阅读 · 写作',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        热爱音乐，沉迷阅读，习惯用写作记录思考与表达自己。
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: '创作有趣的作品',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        喜欢亲手把灵感变成看得见的作品，享受从 0 到 1 的过程。
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'AI 技术研究',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        关注并研究人工智能相关技术，探索技术带来的无限可能。
       </>
     ),
   },

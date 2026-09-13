@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 const config = {
   title: 'Ning Blogs Site',
-  tagline: 'Dinosaurs are cool',
+  tagline: '创作者 · 音乐 · 写作 · 阅读 · AI 技术研究',
   favicon: 'img/favicon.ico',
 
   // themes: ['@docusaurus/theme-search-algolia'],
@@ -133,15 +133,6 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/tutorial/intro',
-              },
-            ],
-          },
           {
             title: 'Community',
             items: [
