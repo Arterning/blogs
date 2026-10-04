@@ -40,4 +40,4 @@ jobs:
           GIT_USER: ${{ github.actor }}
           GIT_PASS: ${{ secrets.GITHUB_TOKEN }}
           USE_SSH: "false"
-        run: pnpm deploy
+        run: pnpm run deploy

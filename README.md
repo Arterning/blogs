@@ -49,7 +49,7 @@ windows下有power shell, cmd, git bash
 最好使用cmd
 
 ```
-cmd /C "set "GIT_USER=Arterning" && yarn deploy"
+cmd /C "set "GIT_USER=Arterning" && pnpm run deploy"
 ```
 
 Linux
