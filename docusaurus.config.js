@@ -87,7 +87,7 @@ const config = {
             label: 'Tutorial',
           },
           {
-            to: '/newPage',
+            to: '/portfolio',
             label: 'Portfolio',
           },
           {to: '/blog', label: 'Blog', position: 'left'},

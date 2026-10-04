@@ -1,4 +1,4 @@
-.page {
+.portfolioPage {
   min-height: calc(100vh - var(--ifm-navbar-height));
   background: radial-gradient(circle at 85% 10%, rgba(46, 133, 85, 0.14), transparent 28rem), var(--ifm-background-color);
 }

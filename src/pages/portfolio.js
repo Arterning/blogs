@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 
-import styles from './newPage.module.css';
+import styles from './portfolio.module.css';
 
 const projects = [
   {
@@ -21,7 +21,7 @@ const projects = [
 export default function Portfolio() {
   return (
     <Layout title="Portfolio" description="Ning 的开源作品集">
-      <main className={styles.page}>
+      <main className={styles.portfolioPage}>
         <section className={styles.hero}>
           <div className="container">
             <span className={styles.eyebrow}>MY WORK</span>
