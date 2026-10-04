@@ -88,7 +88,7 @@ const config = {
           },
           {
             to: '/newPage',
-            label: 'New Page',
+            label: 'Portfolio',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {

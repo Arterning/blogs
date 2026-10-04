@@ -1,0 +1,62 @@
+.page {
+  min-height: calc(100vh - var(--ifm-navbar-height));
+  background: radial-gradient(circle at 85% 10%, rgba(46, 133, 85, 0.14), transparent 28rem), var(--ifm-background-color);
+}
+
+.hero { padding: 6rem 0 3.5rem; }
+
+.eyebrow {
+  color: var(--ifm-color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.title {
+  margin: 0.45rem 0 0.75rem;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.subtitle { margin: 0; color: var(--ifm-color-emphasis-700); font-size: 1.15rem; }
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  padding-bottom: 6rem;
+}
+
+.card {
+  display: flex;
+  min-height: 21rem;
+  flex-direction: column;
+  padding: 2rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 1.25rem;
+  background: var(--ifm-background-surface-color);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.06);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 1.25rem 3.5rem rgba(0, 0, 0, 0.1);
+}
+
+.cardTop { display: flex; align-items: center; justify-content: space-between; }
+.number { color: var(--ifm-color-emphasis-500); font-family: var(--ifm-font-family-monospace); font-size: 0.85rem; }
+.tag { padding: 0.35rem 0.7rem; border-radius: 999px; background: var(--ifm-color-primary-lightest); color: var(--ifm-color-primary-darkest); font-size: 0.75rem; font-weight: 700; }
+.projectName { margin: 3.5rem 0 1rem; font-size: 2rem; letter-spacing: -0.025em; }
+.description { color: var(--ifm-color-emphasis-700); line-height: 1.8; }
+.link { align-self: flex-start; margin-top: auto; font-weight: 700; }
+.link:hover { text-decoration: none; }
+[data-theme='dark'] .tag { background: rgba(37, 194, 160, 0.16); color: var(--ifm-color-primary-lightest); }
+
+@media screen and (max-width: 720px) {
+  .hero { padding: 4rem 0 2.5rem; }
+  .projects { grid-template-columns: 1fr; padding-bottom: 4rem; }
+  .card { min-height: 18rem; }
+}
