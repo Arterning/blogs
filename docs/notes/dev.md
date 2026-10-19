@@ -1,3 +1,20 @@
+# 环境初始化
+
+
+## Install Env
+
+```bash
+
+set https_proxy=http://127.0.0.1:7897
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
+
+nvm install --lts
+
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+```
+
 
 ## pip
 
