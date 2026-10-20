@@ -63,3 +63,13 @@ pnpm config set registry https://registry.npmmirror.com
 ```
 
 
+## ssh
+
+```bash
+
+# 把本地的 7897 端口转发到远程的 7897 端口
+ssh -N -R 0.0.0.0:7897:127.0.0.1:7897 kemove@172.16.1.16
+
+# 把远程的 80 端口转发到本地的 80 端口
+ssh -L 0.0.0.0:80:172.16.1.17:80 aifuzz@172.16.1.17
+```

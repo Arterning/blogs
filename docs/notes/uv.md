@@ -1,3 +1,15 @@
+# 项目初始化
+
+## Vite shadcn
+
+```bash
+pnpm dlx shadcn@latest create --template vite
+```
+
+
+
+## uv
+
 要创建一个使用 Python 3.12 的项目：
 
 ```bash
